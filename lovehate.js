@@ -1,23 +1,20 @@
 var twitter = require('ntwitter');
 var redis = require('redis');
+var cf = require('./cloudfoundry');
 var credentials = require('./credentials.js');
 
-var services = process.env.VCAP_SERVICES?JSON.parse(process.env.VCAP_SERVICES):{};
-console.log(services);
+var redis_host =  cf.redis?cf.redis.credentials.host:'localhost';
+var redis_port = cf.redis?cf.redis.credentials.port:6379;
+var redis_password = cf.redis?cf.redis.credentials.password:undefined;
 
+console.log(redis_host);
+console.log(redis_port);
+console.log(redis_password);
 
-
-//var redis_host =  services.redis-2.2[0].credentials['hostname'] || 'localhost';
-//var redis_port = process.env.VCAP_SERVICES || 
-/*{ 'redis-2.2': 
-  [ { name: 'redis-69908',
-      label: 'redis-2.2',
-      plan: 'free',
-      tags: [Object],
-      credentials: [Object] } ] }*/
-
-
-var client = redis.createClient();
+var client = redis.createClient(redis_port, redis_host);
+if(cf.runningInTheCloud) {
+    client.auth(redis_password);
+}
 
 var t = new twitter({
     consumer_key: credentials.consumer_key,
