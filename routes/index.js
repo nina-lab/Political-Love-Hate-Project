@@ -25,3 +25,9 @@ exports.index = function(req, res){
 	res.send('Hello World!<br/>'+response);
     });
 };
+
+exports.date = function(req, res) {
+    client.hgetall(req.params.date, function(err, response) {
+	res.send(JSON.stringify(response));
+    });
+};
