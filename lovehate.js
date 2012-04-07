@@ -35,10 +35,6 @@ function LoveHateTracker(names) {
 		var year = new Date(Date.parse(d)).getFullYear();
 		var date = (year + "-" + month + "-" + day);
 
-		if(tweet.text.match(/love/i)) {
-		    console.log(tweet.text);
-		}
-
 		names.forEach(function(name) {
 		    if(tweet.text.match(name)) {
 			if(tweet.text.match(/(\s|^)love(\s|$)/i)) {

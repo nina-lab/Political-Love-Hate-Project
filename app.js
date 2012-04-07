@@ -1,29 +1,40 @@
-var http = require('http');
-var redis = require('redis');
-var cf = require('./cloudfoundry');
-var loveHateTracker = require('./lovehate');
 
+
+/**
+ * Module dependencies.
+ */
+
+var express = require('express')
+  , routes = require('./routes');
+
+var loveHateTracker = require('./lovehate');
 var tracker = new loveHateTracker(['Obama','Romney']);
 
-var redis_host =  cf.redis?cf.redis.credentials.host:'localhost';
-var redis_port = cf.redis?cf.redis.credentials.port:6379;
-var redis_password = cf.redis?cf.redis.credentials.password:undefined;
+var app = module.exports = express.createServer();
 
-var client = redis.createClient(redis_port, redis_host);
-if(cf.runningInTheCloud) {
-    client.auth(redis_password);
-}
+// Configuration
 
-http.createServer(function (req, res) {
-    client.keys('*', function(err, results) {
-	var response = '';
-	response += 'keys:\n';
-	results.forEach(function(key) {
-	    response += key + '<br/>';
-	});
-	res.writeHead(200, {'Content-Type': 'text/html'});
-	res.end('Hello World!<br/>'+response);
-    });
-}).listen(cf.port || 3000);
+app.configure(function(){
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
+});
 
-console.log('Server running on port 3000');
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function(){
+  app.use(express.errorHandler());
+});
+
+// Routes
+
+app.get('/', routes.index);
+
+app.listen(3000, function(){
+  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+});
