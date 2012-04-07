@@ -10,6 +10,8 @@ var express = require('express')
 var loveHateTracker = require('./lovehate');
 var tracker = new loveHateTracker(['Obama','Romney']);
 
+var cf = require('./cloudfoundry');
+
 var app = module.exports = express.createServer();
 
 // Configuration
@@ -35,6 +37,6 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 
-app.listen(3000, function(){
+app.listen(cf.port || 3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
