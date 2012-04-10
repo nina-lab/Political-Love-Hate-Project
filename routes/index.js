@@ -26,6 +26,13 @@ exports.index = function(req, res){
     });
 };
 
+exports.regex = function(req, res) {
+	c = require('../count.js');
+	c.count(req.params.expr, req.params.field, function(count) {
+		res.send(req.params.field + ' for ' + req.params.expr + ':\n' + count);
+	});
+};
+
 exports.date = function(req, res) {
     client.hgetall(req.params.date, function(err, response) {
 	res.send(JSON.stringify(response));

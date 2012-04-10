@@ -37,6 +37,8 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 
+app.get('/count/:field/:expr', routes.regex);
+
 app.get('/:date', routes.date);
 
 app.listen(cf.port || 3000, function(){
