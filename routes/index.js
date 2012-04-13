@@ -20,9 +20,9 @@ exports.index = function(req, res){
 	var response = '';
 	response += 'keys:<br/>';
 	keys.forEach(function(key) {
-	    response += key + '<br/>';
+	    response += '<a href="'+key+'">'+key+'</a>' + '<br/>';
 	});
-	res.send('Hello World!<br/>'+response);
+	res.send(response);
     });
 };
 
