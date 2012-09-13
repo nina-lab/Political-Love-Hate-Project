@@ -19,6 +19,8 @@ exports.index = function(req, res){
     client.keys('*', function(err, keys) {
 	var response = '';
 	response += 'keys:<br/>';
+	keys.sort();
+
 	keys.forEach(function(key) {
 	    response += '<a href="'+key+'">'+key+'</a>' + '<br/>';
 	});
