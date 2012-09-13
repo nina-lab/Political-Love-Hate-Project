@@ -1,4 +1,5 @@
-var twitter = require('ntwitter');
+//var twitter = require('ntwitter');
+var twitter = require('immortal-ntwitter');
 var redis = require('redis');
 var cf = require('./cloudfoundry');
 var credentials = require('./credentials.js');
