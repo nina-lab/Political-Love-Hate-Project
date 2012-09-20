@@ -19,7 +19,30 @@ exports.index = function(req, res){
     client.keys('*', function(err, keys) {
 	var response = '';
 	response += 'keys:<br/>';
-	keys.sort();
+        var sortFunc = function (a,b) {
+            yearA = parseInt(a.split("-")[0], 10);
+            yearB = parseInt(b.split("-")[0], 10);
+
+            monthA = parseInt(a.split("-")[1], 10);
+            monthB = parseInt(b.split("-")[1], 10);
+
+            dateA = parseInt(a.split("-")[2], 10);
+            dateB = parseInt(b.split("-")[2], 10);
+
+            if (yearA - yearB !== 0) {
+                return yearA - yearB;
+            } else if (monthA - monthB) {
+                return monthA - monthB;
+            } else {
+                return dateA-dateB;
+            }
+        }
+
+        var reverseSortFunc = function (a,b) {
+            return -sortFunc(a,b);
+        }
+
+	keys.sort(reverseSortFunc);
 
 	keys.forEach(function(key) {
 	    response += '<a href="'+key+'">'+key+'</a>' + '<br/>';
