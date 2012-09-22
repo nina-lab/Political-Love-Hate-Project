@@ -1,0 +1,79 @@
+.sticky-header {
+  position: fixed;
+  top: 0px;
+  margin-top: 0px;
+  width: 100%;
+}
+html,
+body {
+  font-family: Franklin Gothic Medium;
+  background-color: #ffffff;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #bbbbbb;
+  margin: 0px;
+  padding: 0px;
+}
+a {
+  text-decoration: none;
+  color: #78cfff;
+}
+a:hover {
+  color: #56adfd;
+}
+.container {
+  width: 960px;
+  margin: auto;
+}
+.row {
+  background-color: #eeeeee;
+  border: 1px solid #dddddd;
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.bar {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 25px;
+  height: 30px;
+  color: #ffffff;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  overflow: hidden;
+}
+.max-bar-width {
+  width: 878px;
+}
+#obamaLove {
+  background-color: #56adfd;
+}
+#obamaHate {
+  background-color: #1269b9;
+}
+#romneyLove {
+  background-color: #fc370d;
+}
+#romneyHate {
+  background-color: #b80000;
+}
+#totalLove {
+  background-color: #a0bb84;
+}
+#totalHate {
+  background-color: #5c7740;
+}

@@ -17,8 +17,8 @@ if(cf.runningInTheCloud) {
 exports.index = function(req, res){
     //res.render('index', { title: 'Express' })
     client.keys('*', function(err, keys) {
-	var response = '';
-	response += 'keys:<br/>';
+        var response = '';
+        response += 'keys:<br/>';
         var sortFunc = function (a,b) {
             yearA = parseInt(a.split("-")[0], 10);
             yearB = parseInt(b.split("-")[0], 10);
@@ -42,24 +42,28 @@ exports.index = function(req, res){
             return -sortFunc(a,b);
         }
 
-	keys.sort(reverseSortFunc);
+        keys.sort(reverseSortFunc);
 
-	keys.forEach(function(key) {
-	    response += '<a href="'+key+'">'+key+'</a>' + '<br/>';
-	});
-	res.send(response);
+        keys.forEach(function(key) {
+            response += '<a href="'+key+'">'+key+'</a>' + '<br/>';
+        });
+        res.send(response);
     });
 };
 
 exports.regex = function(req, res) {
-	c = require('../count.js');
-	c.count(req.params.expr, req.params.field, function(count) {
-		res.send(req.params.field + ' for ' + req.params.expr + ':\n' + count);
-	});
+        c = require('../count.js');
+        c.count(req.params.expr, req.params.field, function(count) {
+                res.send(req.params.field + ' for ' + req.params.expr + ':\n' + count);
+        });
 };
 
 exports.date = function(req, res) {
     client.hgetall(req.params.date, function(err, response) {
-	res.send(JSON.stringify(response));
+        res.send(JSON.stringify(response));
     });
 };
+
+exports.test = function (req, res) {
+    res.render('date/index', { date: req.params.date, layout:false })    
+}

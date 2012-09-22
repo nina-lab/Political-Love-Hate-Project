@@ -1,0 +1,41 @@
+@shadow-x:	0;
+@shadow-y:	0;
+@blur:		0;
+@color:	 	0;
+
+.box-shadow (@shadow-x, @shadow-y, @blur, @color) {
+	box-shadow: 		@arguments;
+	-moz-box-shadow: 	@arguments;
+	-webkit-box-shadow: @arguments;
+}
+
+@margin-top:    0;
+@margin-bottom: 0;
+@margin-left:   0;
+@margin-right:  0;
+
+.margin (@margin-top, @margin-bottom, @margin-left, @margin-right) {
+	margin-top: 	@margin-top;
+	margin-bottom: @margin-bottom;
+	margin-left: 	@margin-left;
+	margin-right: 	@margin-right;
+}
+
+@padding-top:    0;
+@padding-bottom: 0;
+@padding-left:   0;
+@padding-right:  0;
+
+.padding (@padding-top, @padding-bottom, @padding-left, @padding-right) {
+	padding-top: 	@padding-top;
+	padding-bottom: @padding-bottom;
+	padding-left: 	@padding-left;
+	padding-right: 	@padding-right;
+}
+
+.sticky-header {
+	position: fixed;
+	top: 0px;
+	margin-top: 0px;
+	width: 100%;
+}

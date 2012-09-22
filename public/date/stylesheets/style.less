@@ -1,0 +1,74 @@
+@import "../resources/stylesheets/savignac-colors.less";
+@import "../resources/stylesheets/general.less";
+
+@background-color: #fff;
+@box-color: @background-color - #111;
+@border-color: @background-color - #222;
+@font-family: Franklin Gothic Medium;
+
+html, body {
+        font-family: @font-family;
+        background-color: @background-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+        color: @background-color - #444;
+        margin: 0px;
+        padding: 0px;
+}
+
+a {
+        text-decoration: none;
+        color: @sky + #444;
+        &:hover {
+                color: @sky + #222;
+        }
+}
+
+@container-width: 960px;
+.container {
+        width: @container-width;
+        margin: auto;
+}
+
+@border-width: 1px;
+@row-padding: 20px;
+.row {
+        background-color: @box-color;
+        border: @border-width solid @border-color;
+        padding: 20px;
+        .margin(10px, 10px, 0px, 0px);
+}
+
+@bar-padding: 10px;
+.bar {
+        .margin(10px, 10px, 0px, 0px);
+        .padding(1em, 1em, @bar-padding, @bar-padding);
+        font-size: 25px;
+        height: 30px;
+        color: @background-color;
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        overflow: hidden;
+}
+
+.max-bar-width {
+        width: (((@container-width - (2*@border-width)-(2*@row-padding))/2)-(2*@bar-padding))*2;
+}
+
+@input: 0;
+@tint: #222;
+@dem: @sky;
+@rep: @red - #222;
+@tot: @green;
+
+.love(@love-input){background-color: @love-input + @tint;}
+.hate(@hate-input){background-color: @hate-input - @tint;}
+
+#ObamaLove  {.love(@dem);}
+#ObamaHate  {.hate(@dem);}
+#RomneyLove {.love(@rep);}
+#RomneyHate {.hate(@rep);}
+#totalLove  {.love(@tot);}
+#totalHate  {.hate(@tot);}

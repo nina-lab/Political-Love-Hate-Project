@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+
+        <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+
+        <title></title>
+
+        <!--jQuery-->
+        <script type="text/javascript" src="resources/scripts/jquery.js"></script>
+
+        <!--Scripts-->
+        <script type="text/javascript" src="scripts/script.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+              var data = $.getJSON("../<%= date %>", function (data) {
+                  main(data);
+              });
+          });     
+        </script>
+
+        <!--LESS-->
+        <link rel="stylesheet/less" type="text/css" href="stylesheets/style.less">
+        <script type="text/javascript" src="resources/scripts/less.js"></script>
+
+        <!--CSS-->
+        <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+
+        <!--FONTS-->
+
+</head>
+<body>
+        <!--
+                THIS DIV IS FOR CALCULATING THE WIDTH OF EACH BAR SECTION.
+        -->
+        <div class="max-bar-width"></div>
+
+        <div class="container">
+                
+                <div class="row">
+                        <h5>Love/Hate/Politics</h5>
+                </div>
+                
+                <!--
+                        SOME TAGS JUMP LINES TO ELIMINATE THE WHITE
+                        SPACE IN DISPLAY: INLINE BLOCK. DON'T CHANGE.
+                -->
+                
+                <div class="row">
+                        <h3>Mr. Obama</h3
+                        ><div class="bar" id="ObamaLove"></div
+                        ><div class="bar" id="ObamaHate"></div>
+                </div>
+
+                <div class="row">
+                        <h3>Mr. Romney</h3
+                        ><div class="bar" id="RomneyLove"></div
+                        ><div class="bar" id="RomneyHate"></div>
+                </div>
+
+                <div class="row">
+                        <h3>Total Tweets</h3
+                        ><div class="bar" id="totalLove"></div
+                        ><div class="bar" id="totalHate"></div>
+                </div>
+
+                <div class="row">
+                        <h5>&copy; 2012 <a href="https://github.com/nina-lab">NINA Labs</a> at <a href="http://www.unca.edu">UNC-Asheville</a></h5>
+                </div>
+
+        </div>
+</body>
+</html>
