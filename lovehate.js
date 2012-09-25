@@ -25,30 +25,46 @@ var t = new twitter({
 });
 
 function LoveHateTracker(names) {
-    t.stream(
-	'statuses/filter',
-	{ track: names },
-	function(stream) {
+    t.immortalStream(
+        'statuses/filter',
+        { track: names },
+        function(stream) {
             stream.on('data', function(tweet) {
-		var d = (tweet.created_at);
-		var month = new Date(Date.parse(d)).getMonth()+1;
-		var day = new Date(Date.parse(d)).getDate();
-		var year = new Date(Date.parse(d)).getFullYear();
-		var date = (year + "-" + month + "-" + day);
+                var d = (tweet.created_at);
+                var month = new Date(Date.parse(d)).getMonth()+1;
+                var day = new Date(Date.parse(d)).getDate();
+                var year = new Date(Date.parse(d)).getFullYear();
+                var date = (year + "-" + month + "-" + day);
 
-		names.forEach(function(name) {
-		    if(tweet.text.match(name)) {
-			if(tweet.text.match(/(\s|^)love(\s|$)/i)) {
-			    client.hincrby(date, name+'Love','1', redis.print);
-			}
+                names.forEach(function(name) {
+                    if(tweet.text.match(name)) {
+                        if(tweet.text.match(/(\s|^)love(\s|$)/i)) {
+                            client.hincrby(date, name+'Love','1', redis.print);
+                        }
             
-			if(tweet.text.match(/(\s|^)hate(\s|$)/i)) {
-			    client.hincrby(date, name+'Hate', '1', redis.print);
-			}
-		    }
-		});
+                        if(tweet.text.match(/(\s|^)hate(\s|$)/i)) {
+                            client.hincrby(date, name+'Hate', '1', redis.print);
+                        }
+                    }
+                });
             });
-	}
+
+
+            stream.on('error', function (err) {
+                console.log(err);
+            });
+
+            stream.on('end', function (response) {
+                console.log('end event fired!');
+                console.log(response);
+            });
+
+            stream.on('destroy', function (response) {
+                console.log('destroy event fired!');
+                console.log(response);
+            });
+
+        }
     )
 }
 
