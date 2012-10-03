@@ -45,7 +45,7 @@ exports.index = function(req, res){
         keys.sort(reverseSortFunc);
 
         keys.forEach(function(key) {
-            response += '<a href="'+key+'">'+key+'</a>' + '<br/>';
+            response += '<a href="date/'+key+'">'+key+'</a>' + ' [<a href="'+key+'">json data</a>]<br/>';
         });
         res.send(response);
     });
