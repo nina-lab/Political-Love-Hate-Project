@@ -43,7 +43,7 @@ exports.index = function(req, res){
         }
 
         keys.sort(reverseSortFunc);
-
+	;
         keys.forEach(function(key) {
             response += '<a href="date/'+key+'">'+key+'</a>' + ' [<a href="'+key+'">json data</a>]<br/>';
         });
@@ -60,10 +60,47 @@ exports.regex = function(req, res) {
 
 exports.date = function(req, res) {
     client.hgetall(req.params.date, function(err, response) {
+	response.ObamaTotal = parseInt(response.ObamaLove) + parseInt(response.ObamaHate, 10);
+	response.RomneyTotal = parseInt(response.RomneyLove) + parseInt(response.RomneyHate, 10);
+	response.ObamaHatePercentage = parseInt(response.ObamaHate, 10)/response.ObamaTotal*100;
+	response.ObamaLovePercentage = parseInt(response.ObamaLove, 10)/response.ObamaTotal*100;
+	response.RomneyHatePercentage = parseInt(response.RomneyHate, 10)/response.RomneyTotal*100;
+	response.RomneyLovePercentage = parseInt(response.RomneyLove, 10)/response.RomneyTotal*100;
+	response.ObamaHatePercentage = Math.round(response.ObamaHatePercentage*100)/100;
+	response.ObamaLovePercentage = Math.round(response.ObamaLovePercentage*100)/100;
+	response.RomneyHatePercentage = Math.round(response.RomneyHatePercentage*100)/100;
+	response.RomneyLovePercentage = Math.round(response.RomneyLovePercentage*100)/100;
+	response.ObamaChartURL = "https://chart.googleapis.com/chart?cht=p&chd=t:"+response.ObamaLovePercentage+","+response.ObamaHatePercentage+"&chs=250x100&chl=Love("+response.ObamaLovePercentage+"%)|Hate("+response.ObamaHatePercentage+"%)&chco=5555FF|AAAAFF";
+	response.RomneyChartURL = "https://chart.googleapis.com/chart?cht=p&chd=t:"+response.RomneyLovePercentage+","+response.RomneyHatePercentage+"&chs=250x100&chl=Love("+response.RomneyLovePercentage+"%)|Hate("+response.RomneyHatePercentage+"%)&chco=FF5555|FFAAAA";
         res.send(JSON.stringify(response));
     });
 };
 
 exports.test = function (req, res) {
     res.render('date/index', { date: req.params.date, layout:false })    
+}
+
+exports.getAll = function (req, res) {
+    client.keys("*", function (err, keys) {
+	console.log(keys);
+	var results = [];
+	
+	var recursiveGet = function(results, keys) {
+	    if(keys.length > 0) {
+		client.hgetall(keys[0], function (err, value) {
+		    var key = keys[0],
+		        obj = {};
+		    //modify value with calculation
+		    obj[key] = value;
+
+		    results.push(obj);
+		    keys.shift();
+		    recursiveGet(results, keys);
+		});
+	    } else {
+		res.send(JSON.stringify(results));
+	    }
+	}
+	recursiveGet(results, keys);
+    });
 }
