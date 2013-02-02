@@ -1,12 +1,12 @@
 {
-    "name": "lovehatepolitics"
-  , "version": "0.0.1"
-  , "private": true
-  , "dependencies": {
-      "express": "2.5.8"
-    , "jade": ">= 0.0.1"
-    , "ejs": ">= 0.8.3"
-    , "ntwitter":""
-    , "redis":""
+    "name": "sentimenttracker", 
+    "version": "0.0.1", 
+    "private": true, 
+    "dependencies": {
+      "express"		:  "2.5.x", 
+      "jade"		:  ">= 0.0.1",
+      "ejs"		:  ">= 0.8.3",
+      "redis"	    	:  "0.7.1", 
+      "immortal-ntwitter": "https://github.com/horixon/immortal-ntwitter/tarball/master"
   }
 }
